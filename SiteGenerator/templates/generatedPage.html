@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon/favicon.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+<div class="min-h-screen h-full w-full bg-{{bgcolor}} text-{{fontcolor}}">
+    {% autoescape false %}
+    <div class="flex text-4xl p-4 font-bold">{{title}}</div>
+    <div class="flex text-xl p-4">{{content.intro|linebreaksbr}}</div>
+    {% for i in range(1, content.texts + 1) :%}
+    <div class="flex text-2xl p-4 font-bold">{{content["subtitle-{0:d}".format(i)]|linebreaksbr}}</div>
+    <div class="flex text-xl p-4 ">{{content["text-{0:d}".format(i)]|linebreaksbr}}</div>
+    {% endfor %}
+    <div class="flex text-2xl p-4 font-bold">{{content['conclusion-title']|linebreaksbr}}</div>
+    <div class="flex text-xl p-4">{{content['conclusion-text']|linebreaksbr}}</div>
+    {% endautoescape %}
+</div>
+</body>
+{% if footer :%}
+<footer>
+    <div class="w-full flex justify-center items-center bg-{{bgcolor}} text-{{fontcolor}} pt-5 pb-2">
+        {{footer}}
+    </div>
+</footer>
+{% endif %}
+
+</html>
